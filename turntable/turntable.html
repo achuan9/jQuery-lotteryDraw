@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>turntable</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    .turntable {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      background: url(./bg.png) 0 0 no-repeat;
+      background-size: 100%;
+    }
+    .turntable-wheel {
+      display: block;
+      width: 330px;
+      margin: 0 auto;
+    }
+    .turntable-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: auto;
+    }
+    .stop-btn {
+      display: block;
+      width: 100px;
+      height: 40px;
+      margin: 30px auto 0;
+      background: blueviolet;
+      color: #fff;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="turntable">
+    <img src="./wheel.png" class="turntable-wheel" id="turntable" alt="转盘">
+    <img src="./btn.png" class="turntable-btn" id="startBtn" alt="转盘按钮">
+  </div>
+
+  
+  <button type="button" class="stop-btn" onclick="stopRun()">停止</button>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="./turntable.js"></script>
+  <script>
+    var prizes = [
+      {id: 1, name: "iPhone6s"},
+      {id: 2, name: "咪咕大音响"},
+      {id: 3, name: "咪咕小音箱"},
+      {id: 4, name: "50MB流量"},
+      {id: 5, name: "100MB流量"},
+      {id: 6, name: "300MB流量"},
+    ]
+    var turntable = new Turntable({
+      turntableId: "turntable",
+      startBtnId: "startBtn",
+      prizes: prizes
+    })
+
+    turntable.on('start', function(params) {
+      turntable.run();
+    })
+
+    
+
+
+    turntable.on('end', function(event) {
+      var data = event.params;
+      alert(JSON.stringify(data))
+    })
+
+    function stopRun() {
+      turntable.stop(2)
+    }
+  </script>
+
+</body>
+
+</html>
